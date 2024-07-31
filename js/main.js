@@ -93,7 +93,7 @@ async function getWeatherData(town) {
   showLoading(); // Show loading screen
   try {
    let response = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=c43aa45df8344b9ca4b204407242507&q=${town}&days=7`
+      `https://api.weatherapi.com/v1/forecast.json?key=1d172d3904e246849d3183628230802&q=${town}&days=7`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok" + response.statusText);
