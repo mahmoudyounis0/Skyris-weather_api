@@ -32,6 +32,7 @@ section {
   -o-transition: transform 0.25s ease-out;
   transition: transform 0.25s ease-out;
   overflow-x: hidden;
+  z-index: 9999; /* Ensure it's on top of other content */
 }
 #sidebar-wrapper {
   max-width: 15rem;
