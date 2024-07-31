@@ -11,6 +11,7 @@ const Precipitation = document.querySelector("#Precipitation");
 const wind_direction = document.querySelector("#wind-dir");
 const wind_speed = document.querySelector("#wind-speed");
 const needle = document.querySelector(".needle");
+const containerOfWeekDays=document.querySelector('#scroll-container')
 
 function ShowData() {
   degreeNow.innerHTML = globalDataWeather.current.temp_c + `<sup>°</sup>`;
@@ -26,7 +27,7 @@ function ShowData() {
   lowTempNow.innerHTML =
     globalDataWeather.forecast.forecastday[0].day.mintemp_c;
 
-  wind_speed.innerHTML = globalDataWeather.current.wind_mph +`mph`;
+  wind_speed.innerHTML = globalDataWeather.current.wind_mph;
 
   wind_direction.innerHTML = globalDataWeather.current.wind_dir;
 
@@ -76,8 +77,62 @@ function ShowData() {
   } else {
     needle.classList.add("d-none");
   }
+  var store = "";
+  for (let i = 1; i < globalDataWeather.forecast.forecastday.length; i++) {
+    let date = new Date(globalDataWeather.forecast.forecastday[i].date);
+    let daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    daysOfWeek = daysOfWeek[date.getDay()].slice(0, 3);
+    store += `  <div class="col-md-3 item">
+                  <div class="cardContainer">
+                    <div class="card">
+                      <p class="day text-uppercase">${daysOfWeek}</p>
+                      <p class="weather">${globalDataWeather.forecast.forecastday[i].day.condition.text}</p>
+                      <svg
+                        class="weather"
+                        version="1.1"
+                        id="Layer_1"
+                        x="0px"
+                        y="0px"
+                        width="50px"
+                        height="50px"
+                        viewBox="0 0 100 100"
+                        xml:space="preserve"
+                      >
+                        <image
+                          id="image0"
+                          width="100"
+                          height="100"
+                          x="0"
+                          y="0"
+                          href=https:${ globalDataWeather.current.condition.icon}
+                        ></image>
+                      </svg>
+                      <p class="temp">${globalDataWeather.forecast.forecastday[i].day.maxtemp_c}°</p>
+                      <div class="minmaxContainer fs-5">
+                        <div class="min">
+                          <p class="minHeading">Min</p>
+                          <p class="minTemp">${globalDataWeather.forecast.forecastday[i].day.mintemp_c}°</p>
+                        </div>
+                        <div class="max">
+                          <p class="maxHeading">Max</p>
+                          <p class="maxTemp">${globalDataWeather.forecast.forecastday[i].day.maxtemp_c}°</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> `;
+
+  }
+  containerOfWeekDays.innerHTML=store
 }
-//getWeatherdata
 // Show the loading screen
 function showLoading() {
   document.getElementById("loading-screen").style.display = "flex";
@@ -92,8 +147,8 @@ function hideLoading() {
 async function getWeatherData(town) {
   showLoading(); // Show loading screen
   try {
-   let response = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=1d172d3904e246849d3183628230802&q=${town}&days=7`
+    let response = await fetch(
+      `https://api.weatherapi.com/v1/forecast.json?key=c43aa45df8344b9ca4b204407242507&q=${town}&days=7`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok" + response.statusText);

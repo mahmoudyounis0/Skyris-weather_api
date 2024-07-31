@@ -307,7 +307,6 @@ section {
   width: 80%;
   margin: auto;
   overflow-x: scroll; /* Enables horizontal scrolling */
-  white-space: nowrap; /* Prevents line breaks */
   display: flex;
   scrollbar-width: none; /* For Firefox */
   -ms-overflow-style: none;  /* For Internet Explorer and Edge */
@@ -319,7 +318,7 @@ section {
 
 .item {
   margin-right: 10px;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
   display: inline-block;
   min-width: 200px;
