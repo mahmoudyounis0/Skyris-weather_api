@@ -92,8 +92,8 @@ function hideLoading() {
 async function getWeatherData(town) {
   showLoading(); // Show loading screen
   try {
-    let response = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=c43aa45df8344b9ca4b204407242507&q=aswan&days=7`
+   let response = await fetch(
+      `https://api.weatherapi.com/v1/forecast.json?key=c43aa45df8344b9ca4b204407242507&q=${town}&days=7`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok" + response.statusText);
