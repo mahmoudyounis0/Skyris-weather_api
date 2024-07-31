@@ -26,7 +26,7 @@ function ShowData() {
   lowTempNow.innerHTML =
     globalDataWeather.forecast.forecastday[0].day.mintemp_c;
 
-  wind_speed.innerHTML = globalDataWeather.current.wind_mph;
+  wind_speed.innerHTML = globalDataWeather.current.wind_mph +`mph`;
 
   wind_direction.innerHTML = globalDataWeather.current.wind_dir;
 
