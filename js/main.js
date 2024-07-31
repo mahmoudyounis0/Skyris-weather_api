@@ -11,7 +11,10 @@ const Precipitation = document.querySelector("#Precipitation");
 const wind_direction = document.querySelector("#wind-dir");
 const wind_speed = document.querySelector("#wind-speed");
 const needle = document.querySelector(".needle");
-const containerOfWeekDays=document.querySelector('#scroll-container')
+const containerOfWeekDays = document.querySelector("#scroll-container");
+const searchInput = document.querySelector("#search_input");
+const searchButton = document.querySelector("#search_button");
+const headerLocation = document.querySelector("#head-location");
 
 function ShowData() {
   degreeNow.innerHTML = globalDataWeather.current.temp_c + `<sup>°</sup>`;
@@ -31,7 +34,7 @@ function ShowData() {
 
   wind_direction.innerHTML = globalDataWeather.current.wind_dir;
 
-  humidity.innerHTML = globalDataWeather.current.humidity;
+  humidity.innerHTML = globalDataWeather.current.humidity+`%`;
 
   Precipitation.innerHTML =
     globalDataWeather.forecast.forecastday[0].day.totalprecip_mm + "mm";
@@ -58,25 +61,26 @@ function ShowData() {
       Visibility.innerHTML = "Very Poor";
       break;
   }
-  if (windDir === "NNW" || windDir === "NW" || windDir === "WNW") {
-    needle.classList.add("WN-dir");
-  } else if (windDir === "WSW" || windDir === "SW" || windDir === "SSW") {
-    needle.classList.add("SW-dir");
-  } else if (windDir === "SSE" || windDir === "SE" || windDir === "ESE") {
-    needle.classList.add("SE-dir");
-  } else if (windDir === "ENE" || windDir === "NE" || windDir === "NNE") {
-    needle.classList.add("NE-dir");
-  } else if (windDir === "S") {
-    needle.classList.add("S-dir");
-  } else if (windDir === "N") {
-    needle.classList.add("N-dir");
-  } else if (windDir === "E") {
-    needle.classList.add("E-dir");
-  } else if (windDir === "W") {
-    needle.classList.add("W-dir");
-  } else {
-    needle.classList.add("d-none");
-  }
+  const windDirections = {
+    "NNW": "WN-dir",
+    "NW": "WN-dir",
+    "WNW": "WN-dir",
+    "WSW": "SW-dir",
+    "SW": "SW-dir",
+    "SSW": "SW-dir",
+    "SSE": "SE-dir",
+    "SE": "SE-dir",
+    "ESE": "SE-dir",
+    "ENE": "NE-dir",
+    "NE": "NE-dir",
+    "NNE": "NE-dir",
+    "S": "S-dir",
+    "N": "N-dir",
+    "E": "E-dir",
+    "W": "W-dir",
+  };
+
+  needle.className = `needle ${windDirections[windDir] || "d-none"}`;
   var store = "";
   for (let i = 1; i < globalDataWeather.forecast.forecastday.length; i++) {
     let date = new Date(globalDataWeather.forecast.forecastday[i].date);
@@ -112,7 +116,7 @@ function ShowData() {
                           height="100"
                           x="0"
                           y="0"
-                          href=https:${ globalDataWeather.current.condition.icon}
+                          href=https:${globalDataWeather.current.condition.icon}
                         ></image>
                       </svg>
                       <p class="temp">${globalDataWeather.forecast.forecastday[i].day.maxtemp_c}°</p>
@@ -129,9 +133,8 @@ function ShowData() {
                     </div>
                   </div>
                 </div> `;
-
   }
-  containerOfWeekDays.innerHTML=store
+  containerOfWeekDays.innerHTML = store;
 }
 // Show the loading screen
 function showLoading() {
@@ -272,7 +275,7 @@ document.getElementById("menu-toggle").addEventListener("click", function (e) {
 const scrollContainer = document.getElementById("scroll-container");
 const scrollRightButton = document.getElementById("scroll-right");
 
-const scrollAmount = 100; // Adjust this value for the desired scroll amount
+const scrollAmount = 200; // Adjust this value for the desired scroll amount
 
 scrollRightButton.addEventListener("click", () => {
   scrollContainer.scrollBy({
@@ -323,4 +326,10 @@ scrollContainer.addEventListener("touchmove", (e) => {
   const x = e.touches[0].pageX - scrollContainer.offsetLeft;
   const walk = (x - startX) * 3; // Scroll-fast
   scrollContainer.scrollLeft = scrollLeft - walk;
+});
+searchButton.addEventListener("click", function () {
+  var searchValue = searchInput.value.toLowerCase();
+  getWeatherData(searchValue);
+  headerLocation.innerHTML = ` <h2 id="location-country" class="fs-1 fw-semibold text-uppercase">${searchValue}
+            </h2>`;
 });
