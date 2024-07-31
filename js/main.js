@@ -272,7 +272,7 @@ document.getElementById("menu-toggle").addEventListener("click", function (e) {
 const scrollContainer = document.getElementById("scroll-container");
 const scrollRightButton = document.getElementById("scroll-right");
 
-const scrollAmount = 200; // Adjust this value for the desired scroll amount
+const scrollAmount = 100; // Adjust this value for the desired scroll amount
 
 scrollRightButton.addEventListener("click", () => {
   scrollContainer.scrollBy({
