@@ -15,6 +15,7 @@ const containerOfWeekDays = document.querySelector("#scroll-container");
 const searchInput = document.querySelector("#search_input");
 const searchButton = document.querySelector("#search_button");
 const headerLocation = document.querySelector("#head-location");
+const navBar = document.querySelector("#wrapper");
 
 function ShowData() {
   degreeNow.innerHTML = globalDataWeather.current.temp_c + `<sup>°</sup>`;
@@ -34,7 +35,7 @@ function ShowData() {
 
   wind_direction.innerHTML = globalDataWeather.current.wind_dir;
 
-  humidity.innerHTML = globalDataWeather.current.humidity+`%`;
+  humidity.innerHTML = globalDataWeather.current.humidity + `%`;
 
   Precipitation.innerHTML =
     globalDataWeather.forecast.forecastday[0].day.totalprecip_mm + "mm";
@@ -62,22 +63,22 @@ function ShowData() {
       break;
   }
   const windDirections = {
-    "NNW": "WN-dir",
-    "NW": "WN-dir",
-    "WNW": "WN-dir",
-    "WSW": "SW-dir",
-    "SW": "SW-dir",
-    "SSW": "SW-dir",
-    "SSE": "SE-dir",
-    "SE": "SE-dir",
-    "ESE": "SE-dir",
-    "ENE": "NE-dir",
-    "NE": "NE-dir",
-    "NNE": "NE-dir",
-    "S": "S-dir",
-    "N": "N-dir",
-    "E": "E-dir",
-    "W": "W-dir",
+    NNW: "WN-dir",
+    NW: "WN-dir",
+    WNW: "WN-dir",
+    WSW: "SW-dir",
+    SW: "SW-dir",
+    SSW: "SW-dir",
+    SSE: "SE-dir",
+    SE: "SE-dir",
+    ESE: "SE-dir",
+    ENE: "NE-dir",
+    NE: "NE-dir",
+    NNE: "NE-dir",
+    S: "S-dir",
+    N: "N-dir",
+    E: "E-dir",
+    W: "W-dir",
   };
 
   needle.className = `needle ${windDirections[windDir] || "d-none"}`;
@@ -272,6 +273,10 @@ document.getElementById("menu-toggle").addEventListener("click", function (e) {
   document.getElementById("wrapper").classList.toggle("toggled");
 });
 
+function closeNav() {
+  document.getElementById("wrapper").classList.remove("toggled");
+}
+
 const scrollContainer = document.getElementById("scroll-container");
 const scrollRightButton = document.getElementById("scroll-right");
 
@@ -328,8 +333,23 @@ scrollContainer.addEventListener("touchmove", (e) => {
   scrollContainer.scrollLeft = scrollLeft - walk;
 });
 searchButton.addEventListener("click", function () {
+  searchForSpecificPlace();
+});
+function searchForSpecificPlace(){
   var searchValue = searchInput.value.toLowerCase();
+  searchInput.value='';
+  closeNav();
   getWeatherData(searchValue);
   headerLocation.innerHTML = ` <h2 id="location-country" class="fs-1 fw-semibold text-uppercase">${searchValue}
             </h2>`;
+}
+searchInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    searchForSpecificPlace();
+  }
+});
+document.addEventListener("click", function (event) {
+  if (!wrapper.contains(event.target) && wrapper.classList.contains("toggled")) {
+    wrapper.classList.remove("toggled");
+  }
 });
