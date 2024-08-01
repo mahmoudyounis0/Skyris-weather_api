@@ -417,3 +417,22 @@ section {
   margin-top: 15px;
   font-size: 1.2em;
 }
+::-webkit-scrollbar {
+  width: 15px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(45deg, #000000, #313030); /* Gradient background for the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ffffff, #f1f1f1); /* Gradient for the scrollbar handle */
+  border-radius: 10px; /* Roundness of the scrollbar handle */
+  border: 3px solid #e0e0e0; /* Border color and width of the scrollbar handle */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for the scrollbar handle */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #f1f1f1, #ffffff); /* Gradient for the scrollbar handle on hover */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
