@@ -304,7 +304,7 @@ section {
 }
 
 .scroll-container {
-  width: 80%;
+  width: 90%;
   margin: auto;
   overflow-x: scroll; /* Enables horizontal scrolling */
   display: flex;
