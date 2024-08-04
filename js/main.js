@@ -224,8 +224,8 @@ async function getWeatherData(town) {
         if (town && country) {
           getCapitalCity(country, town);
         } else {
-          document.getElementById("location-country").innerHTML =
-            "Unable to determine town or country.";
+           document.body.innerHTML =
+            `<h1 id="location">Unable to determine town or country.</h1>`;
           hideLoading(); // Hide loading screen
         }
       })
